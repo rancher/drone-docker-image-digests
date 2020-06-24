@@ -67,6 +67,7 @@ func getDigests(list []string, threads int) Digests {
 				return
 			}
 
+			fmt.Printf("pulling image digest for %s\n", image)
 			digest, err := getImageDigest(image)
 			if err != nil {
 				log.Println(err)

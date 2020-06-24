@@ -1,1 +1,1 @@
-# drone docker image shas plugin
+# drone docker image digests plugin

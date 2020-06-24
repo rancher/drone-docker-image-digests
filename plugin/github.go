@@ -71,9 +71,7 @@ func createGhReleaseAsset(release *github.RepositoryRelease, settings Settings, 
 	}
 
 	defer func() {
-		if err = os.Remove(tempFile.Name()); err != nil {
-			return
-		}
+		err = os.Remove(tempFile.Name())
 	}()
 
 	if _, err = tempFile.WriteString(contents.String()); err != nil {
@@ -112,5 +110,7 @@ func getLinesFromAsset(asset *github.ReleaseAsset) ([]string, error) {
 		return []string{}, fmt.Errorf("contents of %s was empty", asset.GetName())
 	}
 
-	return strings.Split(string(body), "\n"), nil
+	list := strings.Split(string(body), "\n")
+
+	return list, nil
 }
