@@ -1,0 +1,24 @@
+---
+kind: pipeline
+type: docker
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: test
+    image: golang:1.14.1-buster
+    privileged: true
+    commands:
+      - go test ./...
+    when:
+      event:
+        - pull_request
+        - push
+        - tag
+trigger:
+  event:
+    exclude:
+      - promote
