@@ -1,6 +1,6 @@
-module github.com/luthermonson/drone-docker-image-shas
+module github.com/rancher/drone-docker-image-digests
 
-go 1.14
+go 1.15
 
 require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
