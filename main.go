@@ -1,23 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
 	"github.com/drone-plugins/drone-plugin-lib/urfave"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/luthermonson/drone-docker-image-shas/plugin"
+	"github.com/rancher/drone-docker-image-digests/plugin"
 	"github.com/urfave/cli/v2"
 )
 
-var version string // build number set at compile-time
+var (
+	Version   = "v0.0.0-dev"
+	GitCommit = "HEAD"
+)
 
 func main() {
 	app := &cli.App{
-		Name:    "my plugin",
-		Usage:   "my plugin usage",
+		Name:    "Docker image digests Drone plugin",
+		Usage:   "drone-docker-image-digests",
 		Action:  run,
-		Version: version,
+		Version: fmt.Sprintf("%s (%s)", Version, GitCommit),
 		Flags:   append(urfave.Flags(), plugin.Flags...),
 	}
 
