@@ -14,5 +14,5 @@ LINKFLAGS="-X github.com/rancher/drone-docker-image-digests.GitCommit=$COMMIT $L
 CGO_ENABLED=0 go build -ldflags "$LINKFLAGS $OTHER_LINKFLAGS" -o bin/drone-docker-image-digests
 if [ "$CROSS" = "true" ] && [ "$ARCH" = "amd64" ]; then
     GOOS=darwin go build -ldflags "$LINKFLAGS" -o bin/drone-docker-image-digests-darwin
-    GOOS=windows go build -ldflags "$LINKFLAGS" -o bin/drone-docker-image-digests-windows
+    GOOS=windows go build -ldflags "$LINKFLAGS" -o bin/drone-docker-image-digests.exe
 fi

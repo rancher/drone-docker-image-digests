@@ -473,10 +473,10 @@ volumes:
       path: \\\\.\\pipe\\docker_engine
 
 ---
-
 kind: pipeline
 name: manifest
 
+steps:
 - name: push-manifest
   image: plugins/manifest
   settings:
