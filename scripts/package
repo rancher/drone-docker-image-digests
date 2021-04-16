@@ -5,14 +5,19 @@ source $(dirname $0)/version
 
 cd $(dirname $0)/..
 
-mkdir -p dist/artifacts
-cp bin/drone-docker-image-digests dist/artifacts/drone-docker-image-digests${SUFFIX}
+function build-image() {
+  IMAGE=${REPO}/${1}:${TAG}
+  DOCKERFILE=package/Dockerfile${2}
+  if [ -e ${DOCKERFILE}.${ARCH} ]; then
+      DOCKERFILE=${DOCKERFILE}.${ARCH}
+  fi
 
-IMAGE=${REPO}/drone-docker-image-digests:${TAG}
-DOCKERFILE=package/Dockerfile
-if [ -e ${DOCKERFILE}.${ARCH} ]; then
-    DOCKERFILE=${DOCKERFILE}.${ARCH}
-fi
+  docker build -f ${DOCKERFILE} -t ${IMAGE} --build-arg ARCH=${ARCH} .
+  echo Built ${IMAGE}
 
-docker build -f ${DOCKERFILE} -t ${IMAGE} .
-echo Built ${IMAGE}
+  if [ "$PUSH" = "true" ]; then
+      docker push ${IMAGE}
+  fi
+}
+
+build-image drone-docker-image-digests

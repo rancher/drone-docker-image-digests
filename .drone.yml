@@ -8,7 +8,9 @@ platform:
 
 steps:
 - name: build
-  image: rancher/dapper:v0.5.4
+  image: rancher/dapper:v0.5.5
+  environment:
+    CROSS: "windows"
   commands:
   - dapper ci
   privileged: true
@@ -19,15 +21,6 @@ steps:
     event:
     - push
     - pull_request
-    - tag
-
-- name: stage-binaries
-  image: rancher/dapper:v0.5.4
-  commands:
-  - "cp -r ./bin/* ./package/"
-  when:
-    event:
-    - push
     - tag
 
 - name: docker-publish
@@ -57,8 +50,10 @@ steps:
       from_secret: github_token
     checksum:
     - sha256
+    checksum_file: CHECKSUMsum-amd64.txt
+    checksum_flatten: true
     files:
-    - "bin/drone-docker-image-digests*"
+    - "dist/artifacts/*"
     prerelease: true
   when:
     event:
@@ -75,8 +70,10 @@ steps:
       from_secret: github_token
     checksum:
     - sha256
+    checksum_file: CHECKSUMsum-amd64.txt
+    checksum_flatten: true
     files:
-    - "bin/drone-docker-image-digests*"
+    - "dist/artifacts/*"
   when:
     event:
     - tag
@@ -100,7 +97,7 @@ platform:
 
 steps:
 - name: build
-  image: rancher/dapper:v0.5.4
+  image: rancher/dapper:v0.5.5
   commands:
   - dapper ci
   privileged: true
@@ -111,15 +108,6 @@ steps:
     event:
     - push
     - pull_request
-    - tag
-
-- name: stage-binaries
-  image: rancher/dapper:v0.5.4
-  commands:
-  - "cp -r ./bin/* ./package/"
-  when:
-    event:
-    - push
     - tag
 
 - name: docker-publish
@@ -142,6 +130,26 @@ steps:
     event:
     - tag
 
+- name: github_binary_prerelease
+  image: plugins/github-release
+  settings:
+    api_key:
+      from_secret: github_token
+    checksum:
+    - sha256
+    checksum_file: CHECKSUMsum-arm64.txt
+    checksum_flatten: true
+    files:
+    - "dist/artifacts/*"
+    prerelease: true
+  when:
+    event:
+    - tag
+    ref:
+      include:
+      - "refs/tags/*rc*"
+      - "refs/tags/*alpha*"
+
 volumes:
 - name: docker
   host:
@@ -156,40 +164,17 @@ platform:
   version: 1809
 
 steps:
-  - name: build
-    pull: always
-    image: rancher/dapper:v0.5.4
-    commands:
-      - dapper.exe -f Dockerfile-windows.dapper -d ci
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - push
-        - pull_request
-        - tag
-
-  - name: stage-binaries
-    image: rancher/dapper:v0.5.4
-    commands:
-      - "cp -r ./bin/* ./package/windows/"
-    when:
-      event:
-        - push
-        - tag
-
   - name: docker-publish
-    image: plugins/docker:windows-1809-amd64
+    image: plugins/docker
     settings:
       purge: false
       build_args:
         - SERVERCORE_VERSION=1809
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/windows
+      context: package/
       custom_dns: 1.1.1.1
-      dockerfile: package/windows/Dockerfile
+      dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -208,6 +193,8 @@ volumes:
     host:
       path: \\\\.\\pipe\\docker_engine
 
+depends_on:
+  - default-linux-amd64
 ---
 kind: pipeline
 name: default-windows-1903
@@ -218,40 +205,17 @@ platform:
   version: 1903
 
 steps:
-  - name: build
-    pull: always
-    image: rancher/dapper:v0.5.4
-    commands:
-      - dapper.exe -f Dockerfile-windows.dapper -d ci
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - push
-        - pull_request
-        - tag
-
-  - name: stage-binaries
-    image: rancher/dapper:v0.5.4
-    commands:
-      - "cp -r ./bin/* ./package/windows/"
-    when:
-      event:
-        - push
-        - tag
-
   - name: docker-publish
-    image: plugins/docker:windows-1903-amd64
+    image: plugins/docker
     settings:
       purge: false
       build_args:
         - SERVERCORE_VERSION=1903
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/windows
+      context: package/
       custom_dns: 1.1.1.1
-      dockerfile: package/windows/Dockerfile
+      dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -270,6 +234,8 @@ volumes:
     host:
       path: \\\\.\\pipe\\docker_engine
 
+depends_on:
+  - default-linux-amd64
 ---
 kind: pipeline
 name: default-windows-1909
@@ -280,40 +246,17 @@ platform:
   version: 1909
 
 steps:
-  - name: build
-    pull: always
-    image: rancher/dapper:v0.5.4
-    commands:
-      - dapper.exe -f Dockerfile-windows.dapper -d ci
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - push
-        - pull_request
-        - tag
-
-  - name: stage-binaries
-    image: rancher/dapper:v0.5.4
-    commands:
-      - "cp -r ./bin/* ./package/windows/"
-    when:
-      event:
-        - push
-        - tag
-
   - name: docker-publish
-    image: plugins/docker:windows-1909-amd64
+    image: plugins/docker
     settings:
       purge: false
       build_args:
         - SERVERCORE_VERSION=1909
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/windows
+      context: package/
       custom_dns: 1.1.1.1
-      dockerfile: package/windows/Dockerfile
+      dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -332,6 +275,8 @@ volumes:
     host:
       path: \\\\.\\pipe\\docker_engine
 
+depends_on:
+  - default-linux-amd64
 ---
 kind: pipeline
 name: default-windows-2004
@@ -350,28 +295,6 @@ steps:
     image: luthermonson/drone-git:windows-2004-amd64
     settings:
       depth: 1
-  - name: build
-    pull: always
-    image: rancher/dapper:v0.5.4
-    commands:
-      - dapper.exe -f Dockerfile-windows.dapper -d ci
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - push
-        - pull_request
-        - tag
-
-  - name: stage-binaries
-    image: rancher/dapper:v0.5.4
-    commands:
-      - "cp -r ./bin/* ./package/windows/"
-    when:
-      event:
-        - push
-        - tag
 
   - name: docker-publish
     image: luthermonson/drone-docker:2004
@@ -381,9 +304,9 @@ steps:
         - SERVERCORE_VERSION=2004
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/windows
+      context: package/
       custom_dns: 1.1.1.1
-      dockerfile: package/windows/Dockerfile
+      dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -402,6 +325,8 @@ volumes:
     host:
       path: \\\\.\\pipe\\docker_engine
 
+depends_on:
+  - default-linux-amd64
 ---
 kind: pipeline
 name: default-windows-20H2
@@ -420,28 +345,6 @@ steps:
     image: luthermonson/drone-git:windows-20H2-amd64
     settings:
       depth: 1
-  - name: build
-    pull: always
-    image: rancher/dapper:v0.5.4
-    commands:
-      - dapper.exe -f Dockerfile-windows.dapper -d ci
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - push
-        - pull_request
-        - tag
-
-  - name: stage-binaries
-    image: rancher/dapper:v0.5.4
-    commands:
-      - "cp -r ./bin/* ./package/windows/"
-    when:
-      event:
-        - push
-        - tag
 
   - name: docker-publish
     image: luthermonson/drone-docker:20H2
@@ -451,9 +354,9 @@ steps:
         - SERVERCORE_VERSION=20H2
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/windows
+      context: package/
       custom_dns: 1.1.1.1
-      dockerfile: package/windows/Dockerfile
+      dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -472,6 +375,8 @@ volumes:
     host:
       path: \\\\.\\pipe\\docker_engine
 
+depends_on:
+- default-linux-amd64
 ---
 kind: pipeline
 name: manifest
