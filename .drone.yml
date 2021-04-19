@@ -395,7 +395,6 @@ steps:
       include:
       - drone-publish.rancher.io
     event:
-    - push
     - tag
 
 volumes:
