@@ -30,7 +30,6 @@ steps:
     build_args:
     - ARCH=amd64
     - "VERSION=${DRONE_TAG}"
-    context: package/
     custom_dns: 1.1.1.1
     dockerfile: package/Dockerfile
     password:
@@ -117,7 +116,6 @@ steps:
     build_args:
     - ARCH=arm64
     - "VERSION=${DRONE_TAG}"
-    context: package/
     custom_dns: 1.1.1.1
     dockerfile: package/Dockerfile
     password:
@@ -172,7 +170,6 @@ steps:
         - SERVERCORE_VERSION=1809
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -213,7 +210,6 @@ steps:
         - SERVERCORE_VERSION=1903
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -254,7 +250,6 @@ steps:
         - SERVERCORE_VERSION=1909
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -304,7 +299,6 @@ steps:
         - SERVERCORE_VERSION=2004
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -354,7 +348,6 @@ steps:
         - SERVERCORE_VERSION=20H2
         - ARCH=amd64
         - "VERSION=${DRONE_TAG}"
-      context: package/
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
