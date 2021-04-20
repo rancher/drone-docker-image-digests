@@ -167,9 +167,10 @@ steps:
     settings:
       purge: false
       build_args:
-        - SERVERCORE_VERSION=1809
-        - ARCH=amd64
+        - "SERVERCORE_VERSION=1809"
+        - "RELEASES=releases.rancher.com"
         - "VERSION=${DRONE_TAG}"
+        - "ARCH=amd64"
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -207,9 +208,10 @@ steps:
     settings:
       purge: false
       build_args:
-        - SERVERCORE_VERSION=1903
-        - ARCH=amd64
+        - "SERVERCORE_VERSION=1903"
+        - "RELEASES=releases.rancher.com"
         - "VERSION=${DRONE_TAG}"
+        - "ARCH=amd64"
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -247,9 +249,10 @@ steps:
     settings:
       purge: false
       build_args:
-        - SERVERCORE_VERSION=1909
-        - ARCH=amd64
+        - "SERVERCORE_VERSION=1909"
+        - "RELEASES=releases.rancher.com"
         - "VERSION=${DRONE_TAG}"
+        - "ARCH=amd64"
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -296,9 +299,10 @@ steps:
     settings:
       purge: false
       build_args:
-        - SERVERCORE_VERSION=2004
-        - ARCH=amd64
+        - "SERVERCORE_VERSION=2004"
+        - "RELEASES=releases.rancher.com"
         - "VERSION=${DRONE_TAG}"
+        - "ARCH=amd64"
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
@@ -345,9 +349,10 @@ steps:
     settings:
       purge: false
       build_args:
-        - SERVERCORE_VERSION=20H2
-        - ARCH=amd64
+        - "SERVERCORE_VERSION=20H2"
+        - "RELEASES=releases.rancher.com"
         - "VERSION=${DRONE_TAG}"
+        - "ARCH=amd64"
       custom_dns: 1.1.1.1
       dockerfile: /package/Dockerfile.windows
       password:
