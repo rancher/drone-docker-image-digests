@@ -175,7 +175,7 @@ steps:
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-1809"
+      tag: "${DRONE_TAG}-windows-amd64-1809"
       username:
         from_secret: docker_username
     volumes:
@@ -215,7 +215,7 @@ steps:
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-1903"
+      tag: "${DRONE_TAG}-windows-amd64-1903"
       username:
         from_secret: docker_username
     volumes:
@@ -255,7 +255,7 @@ steps:
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-1909"
+      tag: "${DRONE_TAG}-windows-amd64-1909"
       username:
         from_secret: docker_username
     volumes:
@@ -304,7 +304,7 @@ steps:
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-2004"
+      tag: "${DRONE_TAG}-windows-amd64-2004"
       username:
         from_secret: docker_username
     volumes:
@@ -353,7 +353,7 @@ steps:
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-20H2"
+      tag: "${DRONE_TAG}-windows-amd64-20H2"
       username:
         from_secret: docker_username
     volumes:
