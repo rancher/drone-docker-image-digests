@@ -172,6 +172,7 @@ steps:
         - "VERSION=${DRONE_TAG}"
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
+      context: package/
       dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
@@ -213,6 +214,7 @@ steps:
         - "VERSION=${DRONE_TAG}"
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
+      context: package/
       dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
@@ -254,6 +256,7 @@ steps:
         - "VERSION=${DRONE_TAG}"
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
+      context: package/
       dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
@@ -304,6 +307,7 @@ steps:
         - "VERSION=${DRONE_TAG}"
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
+      context: package/
       dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
@@ -354,6 +358,7 @@ steps:
         - "VERSION=${DRONE_TAG}"
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
+      context: package/
       dockerfile: /package/Dockerfile.windows
       password:
         from_secret: docker_password
