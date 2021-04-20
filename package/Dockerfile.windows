@@ -6,6 +6,6 @@ SHELL ["powershell", "-NoLogo", "-Command", "$ErrorActionPreference = 'Stop'; $P
 RUN $URL = 'https://github.com/rancher/drone-docker-image-digests/releases/download/${0}/drone-docker-image-digests-windows-amd64.exe' -f $env:VERSION; \
     New-Item -Path 'c:\\' -Name 'drone-docker-image-digests' -ItemType 'directory'; \
     Write-Host ('Downloading binary from {0} ...' -f $URL); \
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls12; \
     Invoke-WebRequest -UseBasicParsing -OutFile c:/drone-docker-image-digests/drone-docker-image-digests.exe -Uri $URL;
 CMD ["C:\\drone-docker-image-digests\\drone-docker-image-digests.exe"]
