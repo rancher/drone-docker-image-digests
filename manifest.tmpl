@@ -1,41 +1,41 @@
 image: rancher/drone-docker-image-digests:{{build.tag}}
 manifests:
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-linux-amd64
     platform:
       architecture: amd64
       os: linux
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-linux-arm64
     platform:
       architecture: arm64
       os: linux
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-1809
     platform:
       architecture: amd64
       os: windows
       version: 1809
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-1903
     platform:
       architecture: amd64
       os: windows
       version: 1903
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-1909
     platform:
       architecture: amd64
       os: windows
       version: 1909
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-2004
     platform:
       architecture: amd64
       os: windows
       version: 2004
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}
+    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-20H2
     platform:
       architecture: amd64
       os: windows
