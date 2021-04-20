@@ -173,7 +173,7 @@ steps:
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
       context: package/
-      dockerfile: /package/Dockerfile.windows
+      dockerfile: package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -215,7 +215,7 @@ steps:
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
       context: package/
-      dockerfile: /package/Dockerfile.windows
+      dockerfile: package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -257,7 +257,7 @@ steps:
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
       context: package/
-      dockerfile: /package/Dockerfile.windows
+      dockerfile: package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -308,7 +308,7 @@ steps:
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
       context: package/
-      dockerfile: /package/Dockerfile.windows
+      dockerfile: package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
@@ -359,7 +359,7 @@ steps:
         - "ARCH=amd64"
       custom_dns: 1.1.1.1
       context: package/
-      dockerfile: /package/Dockerfile.windows
+      dockerfile: package/Dockerfile.windows
       password:
         from_secret: docker_password
       repo: rancher/drone-docker-image-digests
