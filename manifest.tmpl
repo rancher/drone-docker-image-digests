@@ -17,18 +17,6 @@ manifests:
       os: windows
       version: 1809
   -
-    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-1903
-    platform:
-      architecture: amd64
-      os: windows
-      version: 1903
-  -
-    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-1909
-    platform:
-      architecture: amd64
-      os: windows
-      version: 1909
-  -
     image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-2004
     platform:
       architecture: amd64
@@ -40,3 +28,9 @@ manifests:
       architecture: amd64
       os: windows
       version: 20H2
+  -
+    image: rancher/drone-docker-image-digests:{{build.tag}}-windows-amd64-ltsc2022
+    platform:
+      architecture: amd64
+      os: windows
+      version: ltsc2022
