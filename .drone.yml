@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: build
-  image: rancher/dapper:v0.5.5
+  image: rancher/dapper:v0.5.8
   environment:
     CROSS: "windows"
   commands:
@@ -96,7 +96,7 @@ platform:
 
 steps:
 - name: build
-  image: rancher/dapper:v0.5.5
+  image: rancher/dapper:v0.5.8
   commands:
   - dapper ci
   privileged: true
@@ -192,135 +192,7 @@ volumes:
 
 depends_on:
   - default-linux-amd64
----
-kind: pipeline
-name: default-windows-1903
 
-platform:
-  os: windows
-  arch: amd64
-  version: 1903
-
-steps:
-  - name: docker-publish
-    image: plugins/docker
-    settings:
-      purge: false
-      build_args:
-        - "SERVERCORE_VERSION=1903"
-        - "VERSION=${DRONE_TAG}"
-        - "ARCH=amd64"
-      custom_dns: 1.1.1.1
-      dockerfile: package/Dockerfile.windows
-      password:
-        from_secret: docker_password
-      repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-amd64-1903"
-      username:
-        from_secret: docker_username
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - tag
-
-volumes:
-  - name: docker_pipe
-    host:
-      path: \\\\.\\pipe\\docker_engine
-
-depends_on:
-  - default-linux-amd64
----
-kind: pipeline
-name: default-windows-1909
-
-platform:
-  os: windows
-  arch: amd64
-  version: 1909
-
-steps:
-  - name: docker-publish
-    image: plugins/docker
-    settings:
-      purge: false
-      build_args:
-        - "SERVERCORE_VERSION=1909"
-        - "VERSION=${DRONE_TAG}"
-        - "ARCH=amd64"
-      custom_dns: 1.1.1.1
-      dockerfile: package/Dockerfile.windows
-      password:
-        from_secret: docker_password
-      repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-amd64-1909"
-      username:
-        from_secret: docker_username
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - tag
-
-volumes:
-  - name: docker_pipe
-    host:
-      path: \\\\.\\pipe\\docker_engine
-
-depends_on:
-  - default-linux-amd64
----
-kind: pipeline
-name: default-windows-2004
-
-platform:
-  os: windows
-  arch: amd64
-  version: 2004
-
-# remove this and use upstream images when https://github.com/drone/drone-git/pull/25 is merged
-clone:
-  disable: true
-
-steps:
-  - name: clone
-    image: luthermonson/drone-git:windows-2004-amd64
-    settings:
-      depth: 1
-
-  - name: docker-publish
-    image: luthermonson/drone-docker:2004
-    settings:
-      purge: false
-      build_args:
-        - "SERVERCORE_VERSION=2004"
-        - "VERSION=${DRONE_TAG}"
-        - "ARCH=amd64"
-      custom_dns: 1.1.1.1
-      dockerfile: package/Dockerfile.windows
-      password:
-        from_secret: docker_password
-      repo: rancher/drone-docker-image-digests
-      tag: "${DRONE_TAG}-windows-amd64-2004"
-      username:
-        from_secret: docker_username
-    volumes:
-      - name: docker_pipe
-        path: \\\\.\\pipe\\docker_engine
-    when:
-      event:
-        - tag
-
-volumes:
-  - name: docker_pipe
-    host:
-      path: \\\\.\\pipe\\docker_engine
-
-depends_on:
-  - default-linux-amd64
 ---
 kind: pipeline
 name: default-windows-20H2
@@ -370,6 +242,56 @@ volumes:
 
 depends_on:
 - default-linux-amd64
+
+---
+kind: pipeline
+name: default-windows-ltsc2022
+
+platform:
+  os: windows
+  arch: amd64
+  version: 2022
+
+# remove this and use upstream images when https://github.com/drone/drone-git/pull/25 is merged
+clone:
+  disable: true
+
+steps:
+  - name: clone
+    image: rancher/drone-images:git-amd64-ltsc2022
+    settings:
+      depth: 1
+
+  - name: docker-publish
+    image: rancher/drone-images:docker-amd64-ltsc2022
+    settings:
+      purge: false
+      build_args:
+        - "SERVERCORE_VERSION=ltsc2022"
+        - "VERSION=${DRONE_TAG}"
+        - "ARCH=amd64"
+      custom_dns: 1.1.1.1
+      dockerfile: package/Dockerfile.windows
+      password:
+        from_secret: docker_password
+      repo: rancher/drone-docker-image-digests
+      tag: "${DRONE_TAG}-windows-amd64-ltsc2022"
+      username:
+        from_secret: docker_username
+    volumes:
+      - name: docker_pipe
+        path: \\\\.\\pipe\\docker_engine
+    when:
+      event:
+        - tag
+
+volumes:
+  - name: docker_pipe
+    host:
+      path: \\\\.\\pipe\\docker_engine
+
+depends_on:
+  - default-linux-amd64
 ---
 kind: pipeline
 name: manifest
@@ -399,7 +321,5 @@ depends_on:
 - default-linux-amd64
 - default-linux-arm64
 - default-windows-1809
-- default-windows-1903
-- default-windows-1909
-- default-windows-2004
 - default-windows-20H2
+- default-windows-ltsc2022
