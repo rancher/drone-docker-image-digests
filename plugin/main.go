@@ -129,7 +129,13 @@ func getImageList(settings Settings) ([]string, error) {
 }
 
 func createAssetFile(settings Settings, contents fmt.Stringer) error {
-	return os.WriteFile(settings.OutputFile, []byte(contents.String()), 0644)
+	fo, err := os.Create(settings.OutputFile)
+	if err != nil {
+		return err
+	}
+	defer fo.Close()
+	_, err = fo.Write([]byte(contents.String()))
+	return err
 }
 
 func getLinesFromReader(body io.Reader) ([]string, error) {
