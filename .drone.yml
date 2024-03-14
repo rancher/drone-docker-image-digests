@@ -6,6 +6,9 @@ platform:
   os: linux
   arch: amd64
 
+clone:
+  depth: 20
+
 steps:
 - name: build
   image: rancher/dapper:v0.5.8
@@ -94,6 +97,9 @@ platform:
   os: linux
   arch: arm64
 
+clone:
+  depth: 20
+
 steps:
 - name: build
   image: rancher/dapper:v0.5.8
@@ -161,6 +167,9 @@ platform:
   arch: amd64
   version: 1809
 
+clone:
+  depth: 20
+
 steps:
   - name: docker-publish
     image: plugins/docker
@@ -203,16 +212,11 @@ platform:
   arch: amd64
   version: 2022
 
-# remove this and use upstream images when https://github.com/drone/drone-git/pull/25 is merged
 clone:
-  disable: true
+  depth: 20
+
 
 steps:
-  - name: clone
-    image: rancher/drone-images:git-amd64-ltsc2022
-    settings:
-      depth: 1
-
   - name: docker-publish
     image: rancher/drone-images:docker-amd64-ltsc2022
     settings:
@@ -273,3 +277,4 @@ depends_on:
 - default-linux-arm64
 - default-windows-1809
 - default-windows-ltsc2022
+
