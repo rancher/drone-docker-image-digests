@@ -206,6 +206,10 @@ platform:
   arch: amd64
   version: 2022
 
+# remove this and use upstream images when https://github.com/drone/drone-git/pull/25 is merged
+clone:
+  disable: true
+
 steps:
   - name: clone
     image: rancher/drone-images:git-amd64-ltsc2022
