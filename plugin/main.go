@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -132,7 +133,7 @@ func createAssetFile(settings Settings, contents fmt.Stringer) error {
 }
 
 func getLinesFromReader(body io.Reader) ([]string, error) {
-	lines, err := io.ReadAll(body)
+	lines, err := ioutil.ReadAll(body)
 	if err != nil {
 		return nil, err
 	}
